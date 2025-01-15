@@ -1,7 +1,8 @@
 "use client";
-import React, { useState, ReactNode } from "react";
+import React, { useState, ReactNode, useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
+import { useRouter } from "next/router";
 
 export default function DefaultLayout({
   children,
@@ -9,6 +10,15 @@ export default function DefaultLayout({
   children: React.ReactNode;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  useEffect(() => {
+    const email = localStorage.getItem('email'); // Check email in localStorage
+
+    if (!email) {
+      // router.push('/auth/signin'); // Redirect to /auth/signin if no email
+      window.location.href = '/auth/signin'
+    }
+  }, []);
+
   return (
     <>
       {/* <!-- ===== Page Wrapper Start ===== --> */}

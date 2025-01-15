@@ -1,16 +1,16 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
-
-export const metadata: Metadata = {
-  title: "Next.js SignIn Page | TailAdmin - Next.js Dashboard Template",
-  description: "This is Next.js Signin Page TailAdmin Dashboard Template",
-};
 
 const SignIn: React.FC = () => {
+
+  const handleLogin = () => {
+    const email = "saurabhsingh3198@gmail.com"; // Replace with the actual email input value
+    localStorage.setItem("email", email);
+    window.location.href = "/"; // Redirect to homepage after login
+  };
+
   return (
     <>
       {/* <Breadcrumb pageName="Sign In" /> */}
@@ -173,7 +173,7 @@ const SignIn: React.FC = () => {
                 Sign In to TailAdmin
               </h2>
 
-              <form>
+              <form onSubmit={handleLogin}>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-medium text-black dark:text-white">
                     Email
