@@ -13,8 +13,16 @@ import DatePickerTwo from "@/components/FormElements/DatePicker/DatePickerTwo";
 import DatePickerOne from "@/components/FormElements/DatePicker/DatePickerOne";
 import MultiSelect from "@/components/FormElements/MultiSelect";
 import SelectGroupTwo from "@/components/SelectGroup/SelectGroupTwo";
+import FolderDropdown from "../custom/FolderDropdown";
 
 const FormElements = () => {
+  const folders = [
+    { folderName: "F1" },
+    { folderName: "F2" },
+    { folderName: "F3" },
+    { folderName: "F4" },
+    { folderName: "F5" },
+  ];
   return (
     <>
       <Breadcrumb pageName="FormElements" />
@@ -194,6 +202,7 @@ const FormElements = () => {
             </div>
             <div className="flex flex-col gap-5.5 p-6.5">
               <SelectGroupTwo />
+              <FolderDropdown folders={folders} />
               <MultiSelect id="multiSelect" />
             </div>
           </div>
