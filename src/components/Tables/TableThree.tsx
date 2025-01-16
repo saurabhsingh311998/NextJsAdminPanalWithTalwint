@@ -1,4 +1,8 @@
+"use client"; // This makes the component a Client Component
+import { fetchAllPosts } from "@/store/api/getAllProductSlice";
+import { useAppDispatch, useAppSelector } from "@/store/store";
 import { Package } from "@/types/package";
+import { useEffect } from "react";
 
 const packageData: Package[] = [
   {
@@ -28,6 +32,17 @@ const packageData: Package[] = [
 ];
 
 const TableThree = () => {
+  const dispatch = useAppDispatch();
+  const {
+    posts: packageData,
+    loading,
+    error,
+  } = useAppSelector((state) => state.allProduct);
+
+  useEffect(() => {
+    dispatch(fetchAllPosts());
+  }, []);
+
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
@@ -53,16 +68,16 @@ const TableThree = () => {
               <tr key={key}>
                 <td className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
                   <h5 className="font-medium text-black dark:text-white">
-                    {packageItem.name}
+                    {packageItem.title}
                   </h5>
-                  <p className="text-sm">${packageItem.price}</p>
+                  <p className="text-sm">${packageItem.id}</p>
                 </td>
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <p className="text-black dark:text-white">
-                    {packageItem.invoiceDate}
+                    {packageItem.body}
                   </p>
                 </td>
-                <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                {/* <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <p
                     className={`inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium ${
                       packageItem.status === "Paid"
@@ -74,7 +89,7 @@ const TableThree = () => {
                   >
                     {packageItem.status}
                   </p>
-                </td>
+                </td> */}
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <div className="flex items-center space-x-3.5">
                     <button className="hover:text-primary">
