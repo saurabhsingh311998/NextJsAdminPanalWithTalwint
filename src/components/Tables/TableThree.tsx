@@ -2,7 +2,8 @@
 import { fetchAllPosts } from "@/store/api/getAllProductSlice";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { Package } from "@/types/package";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import PaginationControls from "../custom/PaginationControls";
 
 const packageData: Package[] = [
   {
@@ -33,6 +34,7 @@ const packageData: Package[] = [
 
 const TableThree = () => {
   const dispatch = useAppDispatch();
+  const [currentData, setCurrentData] = useState<any>([]);
   const {
     posts: packageData,
     loading,
@@ -64,7 +66,7 @@ const TableThree = () => {
             </tr>
           </thead>
           <tbody>
-            {packageData.map((packageItem, key) => (
+            {currentData.map((packageItem: any, key: any) => (
               <tr key={key}>
                 <td className="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">
                   <h5 className="font-medium text-black dark:text-white">
@@ -163,6 +165,12 @@ const TableThree = () => {
             ))}
           </tbody>
         </table>
+        <PaginationControls
+          data={packageData}
+          onPageChange={setCurrentData}
+          itemsPerPageOptions={[5, 10, 15]}
+          initialItemsPerPage={5}
+        />
       </div>
     </div>
   );
