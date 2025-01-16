@@ -2,7 +2,8 @@
 import React, { useState, ReactNode, useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
-import { useRouter } from "next/router";
+import Loader from "../common/Loader";
+import { redirect } from "next/navigation";
 
 export default function DefaultLayout({
   children,
@@ -10,16 +11,22 @@ export default function DefaultLayout({
   children: React.ReactNode;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
-    const email = localStorage.getItem('email'); // Check email in localStorage
+    const email = localStorage.getItem("email"); // Check email in localStorage
 
     if (!email) {
-      // router.push('/auth/signin'); // Redirect to /auth/signin if no email
-      window.location.href = '/auth/signin'
+      redirect("/auth/signin"); // Redirect to /auth/signin if no email
     }
   }, []);
 
-  return (
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
+  return loading ? (
+    <Loader />
+  ) : (
     <>
       {/* <!-- ===== Page Wrapper Start ===== --> */}
       <div className="flex">
@@ -28,7 +35,9 @@ export default function DefaultLayout({
         {/* <!-- ===== Sidebar End ===== --> */}
 
         {/* <!-- ===== Content Area Start ===== --> */}
-        <div className={`relative flex flex-1 flex-col duration-500 ${sidebarOpen && "lg:ml-72.5"}`}>
+        <div
+          className={`relative flex flex-1 flex-col duration-500 ${sidebarOpen && "lg:ml-72.5"}`}
+        >
           {/* <!-- ===== Header Start ===== --> */}
           <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           {/* <!-- ===== Header End ===== --> */}

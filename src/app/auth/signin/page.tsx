@@ -2,13 +2,13 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 const SignIn: React.FC = () => {
-
   const handleLogin = () => {
     const email = "saurabhsingh3198@gmail.com"; // Replace with the actual email input value
     localStorage.setItem("email", email);
-    window.location.href = "/"; // Redirect to homepage after login
+    redirect("/"); // Redirect to homepage after login
   };
 
   return (
