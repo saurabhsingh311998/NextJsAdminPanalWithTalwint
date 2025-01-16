@@ -50,32 +50,35 @@ const FolderDropdown: React.FC<FolderDropdownProps> = ({ folders }) => {
         Select Folder
       </label>
 
-      <div className="relative z-20 bg-white dark:bg-form-input">
-
+      <div className="relative z-99 bg-white dark:bg-form-input">
         <input
           type="text"
           placeholder="Search folders"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onClick={() => setDropdownOpen(!isDropdownOpen)} // Open dropdown on click
-          className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
+          className="relative z-99 w-full appearance-none rounded border border-stroke bg-transparent px-12 py-3 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input"
         />
 
-        <div className="relative z-20">
+        <div className="relative z-99">
           {isDropdownOpen && (
             <>
               {filteredFolders.length > 0 ? (
-                filteredFolders.map((folder, idx) => (
-                  <li
-                    key={idx}
-                    className="cursor-pointer px-2 py-1 hover:bg-gray-200"
-                    onClick={() => handleFolderSelect(folder.folderName)}
-                  >
-                    {folder.folderName}
-                  </li>
-                ))
+                <ul className="absolute z-99 w-full rounded border border-stroke bg-white shadow-md dark:bg-gray-800">
+                  {filteredFolders.map((folder, idx) => (
+                    <li
+                      key={idx}
+                      className="cursor-pointer px-4 py-2 hover:bg-primary/5 dark:hover:bg-primary/5"
+                      onClick={() => handleFolderSelect(folder.folderName)}
+                    >
+                      {folder.folderName}
+                    </li>
+                  ))}
+                </ul>
               ) : (
-                <li className="px-2 py-1 text-gray-500">No folders found</li>
+                <li className="px-4 py-2 text-gray-500 shadow-md hover:bg-primary/5 dark:hover:bg-primary/5">
+                  No folders found
+                </li>
               )}
             </>
           )}
